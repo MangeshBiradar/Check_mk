@@ -80,7 +80,7 @@ foreach $job_name (@jobs) {
 			}
 		}
 		else {
-			print "CRITICAL, JOB @job_names has no score\n";
+			print "WARNING, JOB @job_names has no score\n";
 		}
 	}
 	#print @job_names, @health;
