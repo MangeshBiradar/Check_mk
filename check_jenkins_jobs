@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Getopt::Long qw(:config no_ignore_case bundling_override);
+no warnings 'uninitialized';
+#print '<<<check_jenkins_jobs>>>';
+my ($port, $host) ;
+# Parse command line arguments
+GetOptions ('host=s'   => \$host, 'port=s' => \$port);
+if( (!defined($host)) || (!defined($port))) {
+        print "USAGE:perl $0 -host mbiradar2d -port 8080";
+  	exit 1;
+}
+
+my @output = `perl "H:\\Mangesh\\check_jenkins_jobs.pl" -host $host -port $port`;
+my $line;
+my $status;
+my $statustxt;
+foreach $line (@output) {
+	#print $line;
+	my @values = split('-', $line);
+	if($values[0] =~ /^CRITICAL/) {
+		$status = 2;
+	    $statustxt = 'CRITICAL';
+	}
+	elsif($values[0] =~ /^WARNING/) {
+		$status = 1;
+		$statustxt = 'WARNING';
+	}
+	else {
+		$status = 0;
+		$statustxt = 'OK';
+	}
+	print "$status $values[1] $statustxt - $values[2] : $values[3]";
+}
