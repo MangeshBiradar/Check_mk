@@ -10,18 +10,6 @@ no warnings 'uninitialized';
 # GET COMMAND LINE ARGUMENTS
 ################################
 my ($port, $host) ;
-my $protocol = 'http';
-my $api_url = '/api/xml';
-my $job_name;
-my $jenkins_url;
-my $job_url;
-my $no_of_jobs;
-my $no_of_score;
-my $count;
-my $error;
-my @jobs;
-my @health;
-my @job_names;
 
 # Parse command line arguments
 GetOptions ('host=s'   => \$host, 'port=s' => \$port);
@@ -30,6 +18,16 @@ if( (!defined($host)) && (!defined($port))) {
 	no_args("Hostname and portnumber must be specified\n");
 }
 sub main {
+	my $protocol = 'http';
+	my $api_url = '/api/xml';
+	my $job_name;
+	my $jenkins_url;
+	my $job_url;
+	my $count;
+	my @jobs;
+	my @health;
+	my @job_names;
+
 	$jenkins_url = $protocol . "://" . $host . ":" . $port . $api_url ;
 	my $ua = LWP::UserAgent->new;
 	$ua->timeout(10);
@@ -104,7 +102,7 @@ EOU
 
 # Print error message and proper usage instructions: don't run the rest of the script
 sub no_args {
-        $error = shift ;
+        my $error = shift ;
         print "\nERROR: $error" ;
         usage();
         exit 1;
