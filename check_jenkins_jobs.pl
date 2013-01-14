@@ -21,72 +21,96 @@ my $count;
 my @jobs;
 my @health;
 my @job_names;
-my @description;
+
 # Parse command line arguments
 GetOptions ('host=s'   => \$host, 'port=s' => \$port);
 
-if( (!defined($host)) || (!defined($port))) {
-        print "USAGE:perl $0 -host mbiradar2d -port 8080";
-		exit 1;
+if( (!defined($host)) && (!defined($port))) {
+	no_args("Hostname and portnumber must be specified\n");
 }
-$jenkins_url = $protocol . "://" . $host . ":" . $port . $api_url ;
-my $ua = LWP::UserAgent->new;
-$ua->timeout(10);
-$ua->env_proxy;
-my $response = $ua->get($jenkins_url);
-if ($response->is_success) {
-	my $content = $response->decoded_content;  # or whatever
-	XML::Twig->new( twig_roots => { 'job/name' => sub { push @jobs, $_->text; } }) ->parseurl( $jenkins_url);
-}
-else {
-	print "CRITICAL || $jenkins_url || not found \n";
-}
-foreach $job_name (@jobs) {
-	@health = ();
-	@job_names = ();
-	@description = ();
-	#$job_name = 'First_run';
-	$job_url = $protocol . "://" . $host . ":" . $port . "/" . "job" . "/" . $job_name . $api_url ;
-	my $response2 = $ua->get($job_url);
-	if ($response2->is_success) {
-		my $new_url = $protocol . "://" . $host . ":" . $port . "/" . "job" . "/" . $job_name . $api_url ;
-		XML::Twig->new( twig_roots => { 'freeStyleProject/name' => sub { push @job_names, $_->text}, 'healthReport/description' => sub { push @description, $_->text; }, 'healthReport/score' => sub { push @health, $_->text; }}) ->parseurl( $new_url);
-		#print "OK, @job_names has Health score @health\n";
-		#print @job_names;
-		#print @health;
-		my $value = scalar(@health);
-		my $job_value = scalar(@job_names);
-		my $result;
-		if ($value != 0	&& $job_value != 0) {
-			#print "Score::$value\n";
-			#print "Name::$job_value\n";
-			my $itr = 0;
-			my $sum = 0;
-			while ($itr < @health) {
-				$sum = $sum + $health[$itr];
-				$itr = $itr + 1;
-			}
-			$result = $sum/$value;
-			#print "$job_name\n";
-			#print "$result\n";
+sub main {
+	$jenkins_url = $protocol . "://" . $host . ":" . $port . $api_url ;
+	my $ua = LWP::UserAgent->new;
+	$ua->timeout(10);
+	$ua->env_proxy;
+	my $response = $ua->get($jenkins_url);
+	if ($response->is_success) {
+		my $content = $response->decoded_content;  # or whatever
+		XML::Twig->new( twig_roots => { 'job/name' => sub { push @jobs, $_->text; } }) ->parseurl( $jenkins_url);
+	}
+	else {
+		print "CRITICAL, Url not found \n";
+	}
+	foreach $job_name (@jobs) {
+		@health = ();
+		@job_names = ();
+		#$job_name = 'First_run';
+		$job_url = $protocol . "://" . $host . ":" . $port . "/" . "job" . "/" . $job_name . $api_url ;
+		my $response2 = $ua->get($job_url);
+		if ($response2->is_success) {
+			my $new_url = $protocol . "://" . $host . ":" . $port . "/" . "job" . "/" . $job_name . $api_url ;
+			XML::Twig->new( twig_roots => { 'freeStyleProject/name' => sub { push @job_names, $_->text}, 'healthReport/score' => sub { push @health, $_->text; }}) ->parseurl( $new_url);
+			#print "OK, @job_names has Health score @health\n";
+			#print @job_names;
+			#print @health;
+			my $value = scalar(@health);
+			my $job_value = scalar(@job_names);
+			my $result;
+			if ($value != 0	&& $job_value != 0) {
+				#print "Score::$value\n";
+				#print "Name::$job_value\n";
+				my $itr = 0;
+				my $sum = 0;
+				while ($itr < @health) {
+					$sum = $sum + $health[$itr];
+					$itr = $itr + 1;
+				}
+				$result = $sum/$value;
+				#print "$job_name\n";
+				#print "$result\n";
 			
-			if($result < 80 && $result >= 40) {
-				print "WARNING || @job_names || @description || $result\n";
-			}
-			elsif($result < 40) {
-				print "CRITICAL || @job_names || @description || $result\n";
+				if($result < 80 && $result >= 40) {
+					print "WARNING, JOB @job_names has Health score $result\n";
+				}
+				elsif($result < 40) {
+					print "CRITICAL, JOB @job_names has Health score $result\n";
+				}
+				else {
+					print "OK, JOB @job_names has Health score $result\n";
+				}
 			}
 			else {
-				print "OK || @job_names || @description || $result\n";
+				print "CRITICAL, JOB @job_names has no score\n";
 			}
 		}
+		#print @job_names, @health;
 		else {
-			print "CRITICAL || @job_names || @description || no score\n";
+			print "CRITICAL, Url not found \n";
 		}
-	}
-	#print @job_names, @health;
-	else {
-		print "CRITICAL || $job_url || not found \n";
 	}
 }
 
+# Explains usage of this script (how to call it effectively)
+sub usage
+{
+	print <<EOU;
+	Usage:
+	perl $0 -host hostname -port portnumber
+	Example:
+	perl $0 -host mbiradar2d -port 8080
+EOU
+}
+
+# Print error message and proper usage instructions: don't run the rest of the script
+sub no_args {
+        $error = shift ;
+        print "\nERROR: $error" ;
+        usage();
+        exit 1;
+}
+
+# Execution starts here
+
+#############
+main();
+#############
