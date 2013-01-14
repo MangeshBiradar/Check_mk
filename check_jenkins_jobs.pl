@@ -18,6 +18,7 @@ my $job_url;
 my $no_of_jobs;
 my $no_of_score;
 my $count;
+my $error;
 my @jobs;
 my @health;
 my @job_names;
