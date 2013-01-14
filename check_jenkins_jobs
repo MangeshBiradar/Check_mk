@@ -18,18 +18,23 @@ my $status;
 my $statustxt;
 foreach $line (@output) {
 	#print $line;
-	my @values = split('-', $line);
+	my @values = split('~', $line);
 	if($values[0] =~ /^CRITICAL/) {
 		$status = 2;
 	    $statustxt = 'CRITICAL';
+		print "$values[0] : $values[1] has health score $values[2]";
+		exit 2;
 	}
 	elsif($values[0] =~ /^WARNING/) {
 		$status = 1;
 		$statustxt = 'WARNING';
+		print "$values[0] : $values[1] has health score $values[2]";
+		exit 1;
 	}
 	else {
 		$status = 0;
 		$statustxt = 'OK';
+		print "$values[0] : $values[1] has health score $values[2]";
+		exit 0;
 	}
-	print "$status $values[1] $statustxt - $values[2] : $values[3]";
 }

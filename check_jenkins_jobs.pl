@@ -38,7 +38,8 @@ sub main {
 		XML::Twig->new( twig_roots => { 'job/name' => sub { push @jobs, $_->text; } }) ->parseurl( $jenkins_url);
 	}
 	else {
-		print "CRITICAL, Url not found \n";
+		print "CRITICAL ~ Url not found \n";
+		#exit 0;
 	}
 	foreach $job_name (@jobs) {
 		@health = ();
@@ -69,22 +70,22 @@ sub main {
 				#print "$result\n";
 			
 				if($result < 80 && $result >= 40) {
-					print "WARNING, JOB @job_names has Health score $result\n";
+					print "WARNING ~ @job_names ~ $result\n";
 				}
 				elsif($result < 40) {
-					print "CRITICAL, JOB @job_names has Health score $result\n";
+					print "CRITICAL ~ @job_names ~ $result\n";
 				}
 				else {
-					print "OK, JOB @job_names has Health score $result\n";
+					print "OK ~ @job_names ~ $result\n";
 				}
 			}
 			else {
-				print "CRITICAL, JOB @job_names has no score\n";
+				print "CRITICAL ~ @job_names ~ no score\n";
 			}
 		}
 		#print @job_names, @health;
 		else {
-			print "CRITICAL, Url not found \n";
+			print "CRITICAL ~ Url not found \n";
 		}
 	}
 }
