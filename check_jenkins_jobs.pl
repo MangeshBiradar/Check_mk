@@ -27,6 +27,7 @@ sub main {
 	my @jobs;
 	my @health;
 	my @job_names;
+	my @description;
 
 	$jenkins_url = $protocol . "://" . $host . ":" . $port . $api_url ;
 	my $ua = LWP::UserAgent->new;
@@ -44,12 +45,13 @@ sub main {
 	foreach $job_name (@jobs) {
 		@health = ();
 		@job_names = ();
+		@description = ();
 		#$job_name = 'First_run';
 		$job_url = $protocol . "://" . $host . ":" . $port . "/" . "job" . "/" . $job_name . $api_url ;
 		my $response2 = $ua->get($job_url);
 		if ($response2->is_success) {
 			my $new_url = $protocol . "://" . $host . ":" . $port . "/" . "job" . "/" . $job_name . $api_url ;
-			XML::Twig->new( twig_roots => { 'freeStyleProject/name' => sub { push @job_names, $_->text}, 'healthReport/score' => sub { push @health, $_->text; }}) ->parseurl( $new_url);
+			XML::Twig->new( twig_roots => { 'freeStyleProject/name' => sub { push @job_names, $_->text}, 'healthReport/description' => sub { push @description, $_->text},'healthReport/score' => sub { push @health, $_->text; }}) ->parseurl( $new_url);
 			#print "OK, @job_names has Health score @health\n";
 			#print @job_names;
 			#print @health;
@@ -70,17 +72,17 @@ sub main {
 				#print "$result\n";
 			
 				if($result < 80 && $result >= 40) {
-					print "WARNING ~ @job_names ~ $result\n";
+					print "WARNING ~ @job_names ~ @description ~ $result\n";
 				}
 				elsif($result < 40) {
-					print "CRITICAL ~ @job_names ~ $result\n";
+					print "CRITICAL ~ @job_names ~ @description ~ $result\n";
 				}
 				else {
-					print "OK ~ @job_names ~ $result\n";
+					print "OK ~ @job_names ~ @description ~ $result\n";
 				}
 			}
 			else {
-				print "CRITICAL ~ @job_names ~ no score\n";
+				print "CRITICAL ~ @job_names ~ @description ~ no score\n";
 			}
 		}
 		#print @job_names, @health;
