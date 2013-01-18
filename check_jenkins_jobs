@@ -11,30 +11,44 @@ if( (!defined($host)) || (!defined($port))) {
         print "USAGE:perl $0 -host mbiradar2d -port 8080";
   	exit 1;
 }
-
+use constant {
+    OK => 0,
+    WARNING => 1,
+    CRITICAL => 2,
+    UNKNOWN => 3,
+};
+sub response($$) {
+	my ($code, $retstr) = @_;
+	my %codemap = (
+		OK => 0,
+		WARNING => 1,
+		CRITICAL => 2,
+		UNKNOWN => 3
+	);
+	print "$code : $retstr";
+	exit $codemap{$code};
+}
 my @output = `perl "H:\\Mangesh\\check_jenkins_jobs.pl" -host $host -port $port`;
 my $line;
-my $status;
-my $statustxt;
+my $message;
 foreach $line (@output) {
 	#print $line;
 	my @values = split('~', $line);
+	#print @values;
 	if($values[0] =~ /^CRITICAL/) {
-		$status = 2;
-	    $statustxt = 'CRITICAL';
-		print "$values[0] : $values[1] has health score $values[2]";
-		exit 2;
+		$message .= "Job - $values[1] : Description - $values[2] : Health score - $values[3]";
+		#print $message;
+		response ( "CRITICAL", $message);
 	}
 	elsif($values[0] =~ /^WARNING/) {
-		$status = 1;
-		$statustxt = 'WARNING';
-		print "$values[0] : $values[1] has health score $values[2]";
-		exit 1;
+		$message .= "Job - $values[1] : Description - $values[2] : Health score - $values[3]";
+		response ( "WARNING", $message);
+		#print $message;
 	}
 	else {
-		$status = 0;
-		$statustxt = 'OK';
-		print "$values[0] : $values[1] has health score $values[2]";
-		exit 0;
+		$message .= "Job - $values[1] : Description - $values[2] : Health score - $values[3]";
+		response ( "OK", $message);
+		#print $message;
 	}
 }
+
