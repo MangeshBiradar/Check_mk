@@ -1,0 +1,29 @@
+jenkins_default_values = (40, 80)
+
+def inventory_jenkins(info):
+        inventory = []
+        for line in info:
+                job_name = line[0]
+                inventory.append( (job_name, "", "jenkins_default_values") )
+        return inventory
+
+def check_jenkins(item, params, info):
+        warn, crit = params
+        for line in info:
+                if line[0] == "Url":
+                        return (3, "UNKNOWN - URL not found")
+
+                if line[0] == item:
+                        score = float(line[-1])
+
+                        perfdata = [ ( "job_name", score, warn, crit ) ]
+                        if score < 40:
+                                return (2, "CRITICAL - Health Score is %.2f" % score, perfdata)
+                        elif (score >= 40) and (score <= 80):
+                                return (1, "WARNING - Health Score is %.2f" % score, perfdata)
+                        else:
+                                return (0, "OK - Health Score is %.2f" % score, perfdata)
+        return (3, "UNKNOWN - job_name %s not found in agent output" % item)
+
+check_info['jenkins'] = \
+        (check_jenkins, "JENKINS_JOB_CHECK_%s", 1, inventory_jenkins)
