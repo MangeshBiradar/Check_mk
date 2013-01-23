@@ -52,7 +52,7 @@ sub main {
 	}
 	else {
 		print "Url not found \n";
-		#exit 0;
+		exit 0;
 	}
 	
 	if($win_apache_flag) {
@@ -79,7 +79,7 @@ sub main {
 			}
 			else {
 				print "Url not found \n";
-				#exit 0;
+				exit 0;
 			}
 			if ($win_apache_job_flag) {
 				#print "OK, @job_names has Health score @health\n";
