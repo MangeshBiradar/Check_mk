@@ -1,0 +1,69 @@
+A.1. Useful Books
+A.1.1. General Linux
+
+    "Linux in a Nutshell" by Ellen Siever, Jessica P. Hackman, Stephen Spainhour, Stephen Figgins, O'Reilly UK, ISBN 0596000251
+
+    "Running Linux" by Matt Welsh, Matthias Kalle Dalheimer, Lar Kaufman, O'Reilly UK, ISBN 156592469X
+
+    "Linux Unleashed" by Tim Parker, Bill Ball, David Pitts, Sams, ISBN 0672316889
+
+    "When You Can't Find Your System Administrator" by Linda Mui, O'Reilly UK, ISBN 1565921046
+
+    When you actually buy a distribution, it will contain a very decent user manual.
+
+A.1.2. Editors
+
+    "Learning the Vi Editor" by Linda Lamb and Arnold Robbins, O'Reilly UK, ISBN 1565924266
+
+    "GNU Emacs Manual" by Richard M.Stallman, iUniverse.Com Inc., ISBN 0595100333
+
+    "Learning GNU Emacs" by Debra Cameron, Bill Rosenblatt and Eric Raymond, O'Reilly UK, ISBN 1565921526
+
+    "Perl Cookbook" by Tom Christiansen and Nathan Torkington, O'Reilly UK, ISBN 1565922433
+
+A.1.3. Shells
+
+    "Unix Shell Programming" by Stephen G.Kochan and Patrick H.Wood, Sams Publishing, ISBN 067248448X
+
+    "Learning the Bash Shell" by Cameron Newham and Bill Rosenblatt, O'Reilly UK, ISBN 1565923472
+
+    "The Complete Linux Shell Programming Training Course" by Ellie Quigley and Scott Hawkins, Prentice Hall PTR, ISBN 0130406767
+
+    "Linux and Unix Shell Programming" by David Tansley, Addison Wesley Publishing Company, ISBN 0201674726
+
+    "Unix C Shell Field Guide" by Gail and Paul Anderson, Prentice Hall, ISBN 013937468X
+
+A.1.4. X Window
+
+    "Gnome User's Guide" by the Gnome Community, iUniverse.Com Inc., ISBN 0595132251
+
+    "KDE Bible" by Dave Nash, Hungry Minds Inc., ISBN 0764546929
+
+    "The Concise Guide to XFree86 for Linux" by Aron HSiao, Que, ISBN 0789721821
+
+    "The New XFree86" by Bill Ball, Prima Publishing, ISBN 0761531521
+
+    "Beginning GTK+ and Gnome" by Peter Wright, Wrox Press, ISBN 1861003811
+
+    "KDE 2.0 Development" by David Sweet and Matthias Ettrich, Sams Publishing, ISBN 0672318911
+
+    "GTK+/Gnome Application Development" by Havoc Pennington, New Riders Publishing, ISBN 0735700788
+
+A.1.5. Networking
+
+    "TCP/IP Illustrated, Volume I: The Protocols" by W. Richard Stevens, Addison-Wesley Professional Computing Series, ISBN 0-201-63346-9
+
+    "DNS and BIND" by Paul Albitz, Cricket Liu, Mike Loukides and Deborah Russell, O'Reilly & Associates, ISBN 0596001584
+
+    "The Concise Guide to DNS and BIND" by Nicolai Langfeldt, Que, ISBN 0789722739
+
+    "Implementing LDAP" by Mark Wilcox, Wrox Press, ISBN 1861002211
+
+    "Understanding and deploying LDAP directory services" by Tim Howes and co., Sams, ISBN 0672323168
+
+    "Sendmail" by Brian Costales and Eric Allman, O'Reilly UK, ISBN 1565922220
+
+    "Removing the Spam : Email Processing and Filtering" by Geoff Mulligan, Addison Wesley Publishing Company, ISBN 0201379570
+
+    "Managing IMAP" by Dianna & Kevin Mullet, O'Reilly UK, ISBN 059600012X
+
