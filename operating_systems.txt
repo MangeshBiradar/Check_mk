@@ -1,0 +1,76 @@
+Windows   
+
+    Windows 7 (32-bit and 64-bit)
+    Windows Vista
+    Windows XP
+    Windows 2000
+
+Macintosh 	
+
+    Mac OS X 10.4, 10.5, and 10.6 with Java 1.6
+
+Linux 	
+
+    Red Hat Enterprise Linux 4 and 5 (x86)
+    Red Hat Enterprise Linux 6 (32-bit and 64-bit)
+    SUSE Linux 9, 10 (32-bit x86)
+    SUSE Linux 11.2, 11.3 (32-bit x86 and 64-bit)
+    Linux PPC (64-bit) 
+    Ubuntu 10.10 (32-bit x86)
+    Fedora 14
+Solaris 	
+
+    Solaris 9, 10, and 11 (SPARC)
+
+HP-UX 	
+
+    HP-UX 11i (PA-RISC)
+
+AIX 	
+
+    AIX 5.2, 5.3, and 6.1 (Power/PowerPC) Windows 	
+
+    Windows 7 (x86 and x64)
+    Windows Vista (x86 and x64)
+    Windows XP (x86, x64, Itanium 2, and AMD-64)
+    Windows Server 2008 (x86 and x64)
+    Windows Server 2008 R2 (64-bit)
+    Windows Server 2003 (x86, x64, Itanium 2, and AMD-64)
+    Windows 2000 and NT (x86)
+
+Macintosh 	
+
+    Mac OS X 10.2, 10.3, 10.4, 10.5 and 10.6 (Snow Leopard)
+
+Linux 	
+
+    Red Hat Enterprise Linux 4 and 5 (x86, Itanium 2, and AMD-64)
+    Red Hat Enterprise Linux 6 (32-bit and 64-bit)
+    SUSE Linux 9, 10, 11.2, 11.3 (x86)
+    Linux on zSeries
+    Linux PPC (64-bit) 
+    Ubuntu 9.10 (x86)
+    Fedora 13 and 14
+
+Solaris 	
+
+    Solaris 9, 10, and 11 (SPARC, x86, and AMD-64)
+    Solaris 11 (Intel)
+
+HP-UX 	
+
+    HP-UX 11i (Itanium 2 and PA-RISC)
+
+AIX 	
+
+    AIX 5.2, 5.3, 6.1, and 7.1 (Power/PowerPC)
+
+IBM 	
+
+    i5/OS (OS/400) on System i - V5R3 and V5R4 (Enterprise Edition only)
+    z/OS
+
+Other 	
+
+    FreeBSD
+    Other Linux and Unix operating systems (POSIXcompliant shell required)
